@@ -1,7 +1,7 @@
 import uuid
 import json
 import datetime
-from backend.app.main import router
+from backend.app.router import router
 from backend.app.auth.rbac import require_auth
 from backend.app.services.safety_guardrail import validate_alert_authorization_permission
 from backend.database.connection import get_db_context

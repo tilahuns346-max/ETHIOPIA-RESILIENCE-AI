@@ -1,6 +1,6 @@
 import uuid
 import datetime
-from backend.app.main import router
+from backend.app.router import router
 from backend.app.auth.rbac import extract_current_user
 from backend.app.schemas.incident import validate_incident_payload
 from backend.database.connection import get_db_context

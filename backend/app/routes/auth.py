@@ -1,5 +1,5 @@
 import sqlite3
-from backend.app.main import router
+from backend.app.router import router
 from backend.app.auth.security import create_jwt_token, verify_password
 from backend.app.auth.rbac import require_auth
 from backend.database.connection import get_db_context

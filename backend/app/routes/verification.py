@@ -1,6 +1,6 @@
 import uuid
 import json
-from backend.app.main import router
+from backend.app.router import router
 from backend.app.auth.rbac import require_roles
 from backend.database.connection import get_db_context
 

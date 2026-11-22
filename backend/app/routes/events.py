@@ -1,6 +1,6 @@
 import time
 import json
-from backend.app.main import router
+from backend.app.router import router
 
 @router.get("/api/v1/events/stream/")
 def stream_events(req: dict):

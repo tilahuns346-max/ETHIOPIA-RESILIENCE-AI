@@ -1,4 +1,4 @@
-from backend.app.main import router
+from backend.app.router import router
 from backend.database.connection import get_db_context
 
 @router.get("/api/v1/gis/boundaries/")

@@ -42,3 +42,6 @@ class Router:
                 if match:
                     return handler, match.groupdict()
         return None, {}
+
+router = Router()
+

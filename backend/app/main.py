@@ -2,9 +2,7 @@ import os
 import json
 from http.server import HTTPServer, BaseHTTPRequestHandler
 from urllib.parse import urlparse, parse_qs
-from backend.app.router import Router
-
-router = Router()
+from backend.app.router import router
 
 # Import all route modules so they register with the router
 import backend.app.routes.auth

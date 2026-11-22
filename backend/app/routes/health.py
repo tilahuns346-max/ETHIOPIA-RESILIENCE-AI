@@ -1,6 +1,6 @@
 import os
 import sqlite3
-from backend.app.main import router
+from backend.app.router import router
 from backend.database.connection import DB_PATH
 
 @router.get("/api/v1/health/")

@@ -1,4 +1,4 @@
-from backend.app.main import router
+from backend.app.router import router
 from ai_pipeline.models.landslide import landslide_model
 from ai_pipeline.conformal import compute_conformal_bounds
 from backend.database.connection import get_db_context
