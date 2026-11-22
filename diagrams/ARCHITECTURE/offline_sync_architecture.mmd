@@ -1,0 +1,8 @@
+graph LR
+    MobileUI[Mobile Incident Form] --> SQLiteQueue[Local SQLite Queue]
+    SQLiteQueue --> NetDetector{Network Available?}
+    NetDetector -- No --> Wait[Wait & Retry with Exponential Backoff]
+    Wait --> NetDetector
+    NetDetector -- Yes --> BatchSync[Batch POST /api/v1/incidents/sync/]
+    BatchSync --> ServerDedup[Server-Side Deduplication & Hash Check]
+    ServerDedup --> PostGISStorage[PostGIS Commit & Ack]

@@ -1,0 +1,10 @@
+stateDiagram-v2
+    [*] --> REPORTED : Citizen Submits / Offline Sync
+    REPORTED --> TRIAGED : AI Deduplication & Clustering
+    TRIAGED --> REJECTED_FALSE_ALARM : Officer Ground Check Invalid
+    TRIAGED --> VERIFIED : Officer Confirms Hazard
+    VERIFIED --> RESPONDING : Emergency Teams Dispatched
+    RESPONDING --> CONTAINED : Active Threat Arrested
+    CONTAINED --> RESOLVED : Debris Cleared / Relief Concluded
+    RESOLVED --> [*]
+    REJECTED_FALSE_ALARM --> [*]

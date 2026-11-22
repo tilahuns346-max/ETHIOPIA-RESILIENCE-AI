@@ -1,0 +1,8 @@
+flowchart TD
+    Stream[EMI Weather & Hydrological Sensors] --> AIThreshold{Risk Probability > 0.70?}
+    AIThreshold -- No --> Mon[Continuous Background Monitoring]
+    AIThreshold -- Yes --> GenDraft[Generate Draft Advisory Alert]
+    GenDraft --> SafetyGate[SAFETY GATE: Require EDRMC Officer Signature]
+    SafetyGate --> HumanDecision{Officer Decision}
+    HumanDecision -- Reject --> LogReason[Log Rejection Reasoning in Audit]
+    HumanDecision -- Approve --> Disseminate[Broadcast Geo-Fenced Push & SMS via Ethio Telecom]

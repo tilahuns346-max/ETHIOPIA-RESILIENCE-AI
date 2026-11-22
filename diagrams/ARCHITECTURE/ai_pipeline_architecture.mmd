@@ -1,0 +1,9 @@
+graph LR
+    Sensors[Meteorological Observations] --> FeatureStore[Feature Engineering Pipeline]
+    Reports[Community Incident Text] --> FeatureStore
+    FeatureStore --> XGBoost[Spatial Risk Classifier - XGBoost]
+    FeatureStore --> NLP[Amharic/English NLP Model]
+    XGBoost --> Conformal[Uncertainty Estimation Bounds]
+    Conformal --> ReviewGate{Human Officer Review}
+    ReviewGate -- Approved --> AlertEngine[Official Warning Dispatch]
+    ReviewGate -- Rejected --> RetrainBuffer[Drift Feedback Store]

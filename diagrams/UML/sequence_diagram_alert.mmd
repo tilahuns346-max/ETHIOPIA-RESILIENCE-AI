@@ -1,0 +1,20 @@
+sequenceDiagram
+    autonumber
+    participant Sensor as Meteorological Sensor / Gauge
+    participant AI as AI Risk Inference Engine (XGBoost)
+    participant DB as PostGIS Spatial Database
+    actor Officer as EDRMC Disaster Officer (Human)
+    participant Broadcaster as Celery Notification Engine
+    actor Citizen as Citizens in Hazard Polygon (SMS/Push)
+    actor Responders as Red Cross & Emergency Units
+
+    Sensor->>AI: 1. Stream Rainfall & River Level Data
+    AI->>AI: 2. Multi-Hazard Spatial Vulnerability Scoring
+    AI->>DB: 3. Save Prediction (Status: PENDING_HUMAN_REVIEW)
+    Note over AI,DB: SAFETY RULE: AI CANNOT AUTO-PUBLISH ALERTS
+    DB->>Officer: 4. Alert Desk Notification (High Risk Detected)
+    Officer->>Officer: 5. Inspect Ground Evidence & Calibrate Severity
+    Officer->>DB: 6. Authorize Alert (Digital Signature Attached)
+    DB->>Broadcaster: 7. Trigger Multi-Channel Broadcast
+    Broadcaster->>Citizen: 8. Send Geo-Fenced SMS Broadcast (Amharic & English)
+    Broadcaster->>Responders: 9. Dispatch Emergency Tactical Directives

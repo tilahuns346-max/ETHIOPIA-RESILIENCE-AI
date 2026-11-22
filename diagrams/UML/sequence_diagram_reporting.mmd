@@ -1,0 +1,21 @@
+sequenceDiagram
+    autonumber
+    actor Reporter as Citizen Reporter (Mobile)
+    participant Cache as SQLite Local Cache
+    participant API as Django REST Gateway
+    participant Celery as Celery Async Task
+    participant Deduper as AI Deduplication & NLP
+    participant DB as PostgreSQL + PostGIS
+    actor Officer as Woreda Disaster Officer
+
+    Reporter->>Cache: 1. Submit Report & Photo (Offline)
+    Note over Reporter,Cache: No Network Required
+    Reporter->>API: 2. Network Restored -> Sync Batch
+    API->>DB: 3. Store Raw Incident (Status: REPORTED)
+    API->>Celery: 4. Dispatch Async Processing Task
+    API-->>Reporter: 5. 202 Accepted (Sync Acknowledged)
+    Celery->>Deduper: 6. Spatial Buffer Check (1.5km, 48h)
+    Deduper->>Deduper: 7. Amharic/English NLP Summarization
+    Deduper->>DB: 8. Update Incident (AI Triage, Trust Score)
+    Celery->>Officer: 9. Push Real-Time Triage Alert
+    Officer->>DB: 10. Ground Inspection & Mark VERIFIED

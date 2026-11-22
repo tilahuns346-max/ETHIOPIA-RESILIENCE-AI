@@ -1,0 +1,23 @@
+flowchart TD
+    Start([Citizen Submits Hazard Report]) --> CheckNet{Internet Connection Available?}
+    CheckNet -- No --> CacheLocal[Save to Local SQLite Queue]
+    CacheLocal --> WaitConn[Poll Network Availability]
+    WaitConn --> CheckNet
+    CheckNet -- Yes --> PushAPI[Transmit Payload to API Gateway]
+    PushAPI --> Geocode[PostGIS Point-in-Polygon Administrative Lookup]
+    Geocode --> AIDedup[AI Deduplication & Temporal Clustering]
+    AIDedup --> CheckCluster{Duplicate Cluster Found?}
+    CheckCluster -- Yes --> MergeIncident[Merge Evidence into Cluster Parent]
+    CheckCluster -- No --> CreateNew[Initialize New Incident Record]
+    MergeIncident --> NotifyWoreda[Alert Woreda Disaster Desk]
+    CreateNew --> NotifyWoreda
+    NotifyWoreda --> FieldInspect[Woreda Focal Person Field Ground-Check]
+    FieldInspect --> VerifyDecision{Is Hazard Validated?}
+    VerifyDecision -- False Alarm --> Reject[Mark Status: REJECTED_FALSE_ALARM]
+    VerifyDecision -- Confirmed --> Verify[Mark Status: VERIFIED]
+    Verify --> CheckSeverity{Severity Level >= 3?}
+    CheckSeverity -- Yes --> Escalation[Escalate to EDRMC & Regional Director for Alert Sign-off]
+    CheckSeverity -- No --> LocalDispatch[Dispatch Local Kebele/Woreda First Responders]
+    Escalation --> End([Response Coordination & Monitoring])
+    LocalDispatch --> End
+    Reject --> End

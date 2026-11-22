@@ -1,0 +1,43 @@
+graph TD
+    subgraph ClientDevices [Client Infrastructure]
+        DesktopWeb["Desktop Web Browser (Chrome/Edge/Firefox)"]
+        MobileDevice["Android/iOS Smartphone (Offline Mobile Client)"]
+    end
+
+    subgraph CloudVPC [Ethiopian Sovereign Cloud / EDRMC Datacenter VPC]
+        LoadBalancer["HAProxy / Cloud Load Balancer (HTTPS 443)"]
+        
+        subgraph AppCluster [Container Orchestration Cluster]
+            WebPod1["Next.js Web Container"]
+            WebPod2["Next.js Web Container"]
+            APIPod1["Django REST API Container"]
+            APIPod2["Django REST API Container"]
+            CeleryPod1["Celery Background Worker"]
+            CeleryPod2["Celery AI Inference Worker"]
+        end
+
+        subgraph DataCluster [High-Availability Data Tier]
+            PGMaster[("PostgreSQL 15 + PostGIS (Primary)")]
+            PGStandby[("PostgreSQL 15 + PostGIS (Standby Replica)")]
+            RedisCluster[("Redis Sentinel Cluster")]
+            StorageCluster[("MinIO Encrypted S3 Object Storage")]
+        end
+    end
+
+    subgraph ExternalGateways [External Ethiopian Networks]
+        EthioTelGateway["Ethio Telecom SMS Service Gateway"]
+        EMIGateway["Ethiopian Meteorology Institute Sensor Feed"]
+    end
+
+    DesktopWeb --> LoadBalancer
+    MobileDevice --> LoadBalancer
+    LoadBalancer --> WebPod1
+    LoadBalancer --> APIPod1
+    APIPod1 --> PGMaster
+    APIPod1 --> RedisCluster
+    CeleryPod1 --> RedisCluster
+    CeleryPod1 --> PGMaster
+    CeleryPod2 --> PGMaster
+    CeleryPod1 --> EthioTelGateway
+    EMIGateway --> APIPod1
+    PGMaster -.->|Streaming Replication| PGStandby

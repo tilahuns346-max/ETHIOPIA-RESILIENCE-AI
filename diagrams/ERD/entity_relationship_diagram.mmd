@@ -1,0 +1,23 @@
+erDiagram
+    REGIONS ||--o{ ZONES : contains
+    ZONES ||--o{ WOREDAS : contains
+    WOREDAS ||--o{ KEBELES : contains
+    KEBELES ||--o{ COMMUNITIES : contains
+    ROLES ||--o{ USERS : assigned_to
+    WOREDAS ||--o{ USERS : based_at
+    HAZARDS ||--o{ INCIDENTS : categorized_as
+    KEBELES ||--o{ INCIDENTS : locates
+    USERS ||--o{ INCIDENTS : reports
+    INCIDENTS ||--o{ INCIDENT_EVIDENCE : contains
+    WOREDAS ||--o{ WEATHER_STATIONS : locates
+    WEATHER_STATIONS ||--o{ WEATHER_OBSERVATIONS : records
+    HAZARDS ||--o{ AI_PREDICTIONS : models
+    WOREDAS ||--o{ AI_PREDICTIONS : targets
+    AI_PREDICTIONS ||--o{ ALERTS : informs
+    HAZARDS ||--o{ ALERTS : classifies
+    USERS ||--o{ ALERTS : authorizes_by_human
+    ALERTS ||--o{ NOTIFICATIONS : dispatches
+    ALERTS ||--o{ RESPONSE_TASKS : initiates
+    INCIDENTS ||--o{ RESPONSE_TASKS : addresses
+    RESPONSE_TEAMS ||--o{ RESPONSE_TASKS : executes
+    USERS ||--o{ AUDIT_LOGS : performs

@@ -1,0 +1,8 @@
+flowchart TD
+    AlertApproved[Official Alert Disseminated] --> AutoTask[Generate Tactical Response Tasks]
+    AutoTask --> AssignTeam[Assign Red Cross / Fire / Health Units by Proximity]
+    AssignTeam --> TeamAck[Field Team Leader Acknowledges via Mobile App]
+    TeamAck --> EnRoute[Team En-Route: GPS Telemetry Streamed]
+    EnRoute --> OnScene[Arrival On-Scene: Search, Rescue & Medical Triage]
+    OnScene --> TaskComplete[Field Commander Submits Debris/Casualty Report]
+    TaskComplete --> Debrief[Debrief & Resource Restock]

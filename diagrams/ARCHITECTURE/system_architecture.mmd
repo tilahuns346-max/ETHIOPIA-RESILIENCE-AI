@@ -1,0 +1,11 @@
+graph TD
+    Client["Clients: Web (Next.js) & Mobile (Expo/React Native)"] --> Ingress["TLS 1.3 Ingress & Load Balancer"]
+    Ingress --> DRF["Django REST Framework Core API"]
+    DRF --> Auth["Auth & RBAC Service"]
+    DRF --> PostGIS[("PostgreSQL 15 + PostGIS Spatial Engine")]
+    DRF --> CeleryQueue["Celery Async Broker (Redis)"]
+    CeleryQueue --> AIWorker["AI Multi-Hazard Risk Inference (XGBoost/PyTorch)"]
+    CeleryQueue --> SyncWorker["Offline Data Sync & Conflict Resolution"]
+    CeleryQueue --> SMSWorker["Ethio Telecom Bulk SMS Broadcaster"]
+    AIWorker --> PostGIS
+    SyncWorker --> PostGIS

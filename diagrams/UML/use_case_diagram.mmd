@@ -1,0 +1,42 @@
+graph LR
+    subgraph Actors [System Stakeholders]
+        Citizen["👤 Community Reporter / Citizen"]
+        KebeleLead["👤 Kebele Committee Head"]
+        WoredaOfficer["👤 Woreda Disaster Officer"]
+        RegDirector["👤 Regional DRMC Director"]
+        NatCommander["👤 National EDRMC Commander"]
+        Responder["🚒 First Responder / Search & Rescue"]
+        AIService["🤖 Resilience AI Engine"]
+    end
+
+    subgraph UseCases [Ethiopia Resilience AI Platform Boundary]
+        UC1((UC-01: Report Hazard Offline/Online))
+        UC2((UC-02: Upload Photo & Voice Evidence))
+        UC3((UC-03: Triaging & AI Deduplication))
+        UC4((UC-04: Ground-Truth Verification))
+        UC5((UC-05: Multi-Hazard Risk Scoring))
+        UC6((UC-06: Human Review & Alert Approval))
+        UC7((UC-07: Geo-Fenced Alert Dissemination))
+        UC8((UC-08: Dispatch & Track Response Teams))
+        UC9((UC-09: Field Triage & Survivor Rescue))
+        UC10((UC-10: Audit Log & Provenance Tracking))
+    end
+
+    Citizen --> UC1
+    Citizen --> UC2
+    UC1 -.->|triggers| UC3
+    AIService --> UC3
+    AIService --> UC5
+    KebeleLead --> UC4
+    WoredaOfficer --> UC4
+    UC4 --> UC6
+    UC5 --> UC6
+    RegDirector --> UC6
+    NatCommander -->|Mandatory Final Sign-off| UC6
+    UC6 --> UC7
+    UC7 -->|Broadcasts to| Citizen
+    WoredaOfficer --> UC8
+    UC8 --> Responder
+    Responder --> UC9
+    UC6 -.->|Logged in| UC10
+    UC4 -.->|Logged in| UC10

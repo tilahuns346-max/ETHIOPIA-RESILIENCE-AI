@@ -1,0 +1,39 @@
+graph TD
+    subgraph ClientTier [Frontend & Mobile Layer]
+        NextApp["Next.js Web Portal (TypeScript)"]
+        MobileApp["React Native Mobile App (Expo)"]
+        OfflineSync["SQLite Local Sync Engine"]
+    end
+
+    subgraph APITier [Application & Gateway Layer]
+        Nginx["Nginx Reverse Proxy / SSL Termination"]
+        DRF["Django REST Framework Core API"]
+        AuthService["JWT / RBAC Access Controller"]
+    end
+
+    subgraph WorkerTier [Asynchronous & AI Service Layer]
+        Redis["Redis Message Broker & Cache"]
+        CeleryWorker["Celery Distributed Workers"]
+        XGBoostEngine["XGBoost Multi-Hazard Spatial Engine"]
+        NLPEngine["Amharic/English NLP Summarizer"]
+    end
+
+    subgraph DataTier [Spatial Storage & Telecommunications]
+        PostGIS[("PostgreSQL 15 + PostGIS Spatial Engine")]
+        S3Storage[("Encrypted Evidence Object Store")]
+        EthioTelecom["Ethio Telecom SMS/USSD Gateway"]
+    end
+
+    NextApp --> Nginx
+    MobileApp --> OfflineSync
+    OfflineSync --> Nginx
+    Nginx --> DRF
+    DRF --> AuthService
+    DRF --> Redis
+    DRF --> PostGIS
+    Redis --> CeleryWorker
+    CeleryWorker --> XGBoostEngine
+    CeleryWorker --> NLPEngine
+    CeleryWorker --> PostGIS
+    CeleryWorker --> S3Storage
+    CeleryWorker --> EthioTelecom

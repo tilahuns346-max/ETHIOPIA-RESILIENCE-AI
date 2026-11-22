@@ -1,0 +1,91 @@
+classDiagram
+    class Region {
+        +UUID region_id
+        +String code
+        +String name_en
+        +String name_am
+        +MultiPolygon geom
+        +get_hazard_summary()
+    }
+    class Woreda {
+        +UUID woreda_id
+        +UUID zone_id
+        +String name_en
+        +String name_am
+        +JSONB risk_profile
+        +MultiPolygon geom
+        +calculate_vulnerability()
+    }
+    class User {
+        +UUID user_id
+        +String username
+        +String phone_number
+        +UserRole role
+        +Float trust_score
+        +authenticate()
+        +has_permission(perm)
+    }
+    class Incident {
+        +UUID incident_id
+        +String incident_number
+        +HazardType hazard
+        +Point location
+        +IncidentStatus status
+        +SeverityLevel severity
+        +DateTime reported_at
+        +verify(officer_id, notes)
+        +triage()
+    }
+    class IncidentEvidence {
+        +UUID evidence_id
+        +String file_url
+        +String sha256_hash
+        +Point capture_location
+        +validate_integrity()
+    }
+    class AIPrediction {
+        +UUID prediction_id
+        +String model_name
+        +Float risk_probability
+        +Float uncertainty_lower
+        +Float uncertainty_upper
+        +evaluate_threshold()
+    }
+    class Alert {
+        +UUID alert_id
+        +String alert_code
+        +AlertStatus status
+        +SeverityLevel severity
+        +MultiPolygon affected_polygon
+        +Boolean evacuation_order
+        +User approved_by_officer
+        +DateTime approval_timestamp
+        +approve(officer_id, signature)
+        +disseminate()
+    }
+    class ResponseTeam {
+        +UUID team_id
+        +String name
+        +TeamOrgType org_type
+        +Point current_location
+        +String status
+        +dispatch(task_id)
+        +update_telemetry(point)
+    }
+    class ResponseTask {
+        +UUID task_id
+        +String task_type
+        +TaskStatus status
+        +Point target_location
+        +complete(report)
+    }
+
+    Region "1" *-- "many" Woreda : contains
+    Woreda "1" *-- "many" Incident : locates
+    User "1" --> "many" Incident : reports
+    Incident "1" *-- "many" IncidentEvidence : contains
+    Incident "1" o-- "1" AIPrediction : evaluated_by
+    AIPrediction "0..1" --> "0..1" Alert : informs
+    Alert "1" --> "many" ResponseTask : generates
+    ResponseTeam "1" --> "many" ResponseTask : executes
+    User "1" --> "many" Alert : approves_as_officer

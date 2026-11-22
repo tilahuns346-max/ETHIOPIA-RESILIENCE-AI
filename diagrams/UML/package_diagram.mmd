@@ -1,0 +1,20 @@
+graph TD
+    subgraph Core [Package: eth_resilience.core]
+        Auth[Authentication & RBAC]
+        GeoAdmin[Administrative Hierarchy & PostGIS]
+        Audit[Cryptographic Audit Trail]
+    end
+    subgraph Hazard [Package: eth_resilience.hazards]
+        Ingestion[Sensor & Weather Stream Ingestion]
+        SpatialRisk[Multi-Hazard Vulnerability Engine]
+        AIModels[XGBoost & NLP Models]
+    end
+    subgraph Operations [Package: eth_resilience.ops]
+        Incidents[Incident Reporting & Verification]
+        Alerts[Early Warning & Human Approval]
+        Response[Team Dispatch & Task Tracking]
+        Notifications[SMS & Push Dissemination Engine]
+    end
+    Core --> Hazard
+    Core --> Operations
+    Hazard --> Operations
