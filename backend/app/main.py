@@ -24,7 +24,7 @@ import backend.app.routes.gis
 import backend.app.routes.health
 import backend.app.routes.ai_predictions
 
-DASHBOARD_HTML = \"\"\"<!DOCTYPE html>
+DASHBOARD_HTML = """<!DOCTYPE html>
 <html lang="am">
 <head>
     <meta charset="UTF-8">
@@ -264,7 +264,7 @@ DASHBOARD_HTML = \"\"\"<!DOCTYPE html>
     </script>
 </body>
 </html>
-\"\"\"
+"""
 
 @router.get("/")
 def get_dashboard_root(req: dict):
