@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ethiopia-resilience-api
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: resilience-api
+  template:
+    metadata:
+      labels:
+        app: resilience-api
+    spec:
+      containers:
+      - name: api
+        image: ethiopia-resilience-api:2.4.0
+        ports:
+        - containerPort: 8000
