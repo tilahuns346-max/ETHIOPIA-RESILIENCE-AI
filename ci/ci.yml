@@ -1,0 +1,15 @@
+name: Ethiopia Resilience AI CI/CD
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+    - name: Run Backend Tests
+      run: python -m unittest discover backend/tests
+    - name: Run AI Tests
+      run: python -m unittest discover ai_pipeline/tests
