@@ -1,0 +1,19 @@
+{
+  "brand": "Ethiopia Resilience AI",
+  "tagline": "National Early Warning, Community Reporting & Emergency Response Coordination",
+  "nav": {
+    "dashboard": "National Dashboard",
+    "risk_map": "Hazard Risk Map",
+    "report_incident": "Report Incident",
+    "verification": "Woreda Verification",
+    "alerts": "Alert Management",
+    "teams": "Response Units",
+    "analytics": "Analytics & Trends"
+  },
+  "alerts": {
+    "critical": "Level 4 - Critical",
+    "high": "Level 3 - High",
+    "moderate": "Level 2 - Moderate",
+    "low": "Level 1 - Low"
+  }
+}
