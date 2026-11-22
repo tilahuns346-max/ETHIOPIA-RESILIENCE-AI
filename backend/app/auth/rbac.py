@@ -1,4 +1,4 @@
-from typing import List, Optional, Dict, Any
+from typing import List, Optional, Dict, Any, Tuple
 from backend.app.auth.security import decode_jwt_token
 
 def extract_current_user(req: dict) -> Optional[Dict[str, Any]]:

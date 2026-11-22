@@ -1,4 +1,4 @@
-from typing import Optional, Dict, Any, List
+from typing import Optional, Dict, Any, List, Tuple
 
 def validate_incident_payload(data: dict) -> Tuple[bool, str, dict]:
     if not isinstance(data, dict):
